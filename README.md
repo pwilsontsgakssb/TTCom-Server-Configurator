@@ -1,2 +1,3 @@
 # TTCom-Server-Configurator
 This is a small thing I put together. It is a small project for newbies of the TTCom which is a program by Doug Lee, and it meh. Just...
+If you are interested in more, go to https://dlee.org.
