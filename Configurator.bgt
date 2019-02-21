@@ -1,0 +1,42 @@
+/*
+TTCom Server Configurator
+By Patrick Wilson.
+This program should allow you to configure TTCom and add a new server to it. We are not responceable for what you do to the thingy..
+*/
+void main()
+{
+
+file f;
+//Check if ttcom.conf exists, and warn the user if the file does not exist.
+if(!file_exists("ttcom.conf"))
+{
+alert("Error","No TTCom configuration is in this directory. Please make sure you are running this program from where your TTCom is.");
+exit();
+}
+//Let's ask the user for their server information they want to add to the file.
+string sname=input_box("Server Name","Enter the server name you would like to use.");
+string shost=input_box("Host","Enter the server's host address.");
+string sport=input_box("Server Port","Enter the server's TCP port. Note: The reason that it does not show UDP port is because TTCom doesn't need audio.");
+string susername=input_box("Server Username","Enter your username.");
+string spassword=input_box("Password","Enter the password.");
+string autolog=input_box("Automatic Login","Would you like the TTCom to login to the server at startup? 1 for yes, 2 for login after kick (attempts to login if someone kicked the TTCom from the server), 0 for no.");
+string snick=input_box("Your Nickname","Enter the nickname you would like to use for this server.");
+//Let's now make sure that the port is only numbers.
+if (string_is_digits(sport)==false)
+{
+alert("Error","The TCP port field either is blank, or contains something more than numbers. Please try again!");
+exit();
+}
+//Let's now make sure that the auto login is only digits.
+if (string_is_digits(autolog)==false)
+{
+alert("Error","The auto login field is either blank or contains something more than numbers. Please try again!");
+exit();
+}
+//Let's now put the stuff they entered into the file at once.
+f.open("ttcom.conf","ab");
+f.write("[server "+sname+"]\r\nhost="+shost+"\r\ntcpport="+sport+"\r\nusername="+susername+"\r\npassword="+spassword+"\r\nnickname="+snick+"\r\nautoLogin="+autolog+"\r\n");
+f.close;
+//Program is now done. Let's now alert the user that the operation completed.
+alert("Done","TTCom configurator has added the new server information. Tip: Type \"refresh\" to refresh your ttcom and not have to restart it. Now exiting.");
+}
